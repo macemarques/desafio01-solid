@@ -1,0 +1,349 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Desafio Documentação com Swagger",
+    "version": "1.0.0",
+    "contact": {
+      "email": "marcelo@gmail.com"
+    },
+    "description": "Desafio Ignite Swagger"
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create a user.",
+        "description": "Create a new user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "User name sample",
+                  "email": "User description sample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "enum": [
+                        1
+                      ],
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "id": "3ffdf67a-2c67-4bf6-8194-08fc3b7bf726",
+                    "name": "User name sample",
+                    "email": "User description sample",
+                    "admin": false,
+                    "created_at": "2021-03-20T20:30:26.015Z",
+                    "updated_at": "2021-03-20T20:30:26.015Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "This email is already taken."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "List all users.",
+        "description": "Only `admins` can list all users.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "enum": [
+                        1
+                      ],
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": [
+                    {
+                      "id": "3ffdf67a-2c67-4bf6-8194-08fc3b7bf726",
+                      "name": "User name sample",
+                      "email": "User description sample",
+                      "admin": false,
+                      "created_at": "2021-03-20T20:30:26.015Z",
+                      "updated_at": "2021-03-20T20:30:26.015Z"
+                    },
+                    {
+                      "id": "3ffdf67a-2c67-4bf6-8194-08fc3b7bf727",
+                      "name": "User name sample 2",
+                      "email": "User description sample 2",
+                      "admin": false,
+                      "created_at": "2021-03-20T20:30:26.015Z",
+                      "updated_at": "2021-03-20T20:30:26.015Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User is not a ADMIN or User does not exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "User is not a ADMIN ou User does not exists."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Find user by ID.",
+        "description": "Return a single user.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "ID of user to return.",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "enum": [
+                        1
+                      ],
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": [
+                    {
+                      "id": "3ffdf67a-2c67-4bf6-8194-08fc3b7bf726",
+                      "name": "User name sample",
+                      "email": "User description sample",
+                      "admin": false,
+                      "created_at": "2021-03-20T20:30:26.015Z",
+                      "updated_at": "2021-03-20T20:30:26.015Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "User ID can be wrong."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Make a user an admin.",
+        "description": "Return user with admin parameter equals `true`.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "ID of user to make admin.",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "enum": [
+                        1
+                      ],
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": [
+                    {
+                      "id": "3ffdf67a-2c67-4bf6-8194-08fc3b7bf726",
+                      "name": "User name sample",
+                      "email": "User description sample",
+                      "admin": true,
+                      "created_at": "2021-03-20T20:30:26.015Z",
+                      "updated_at": "2021-03-20T20:30:26.015Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "User ID can be wrong."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
